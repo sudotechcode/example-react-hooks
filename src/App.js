@@ -61,7 +61,7 @@ function TodoItem({ id, completed, text }) {
             justifyContent: 'space-between'
           }}>
             <input type="checkbox" checked={completed} onChange={() => dispatch({ type: 'completed-item', payload: id })} />
-            <input type="text" defaultValue={text} onKeyUp={() => dispatch({ type: 'change-item-text', payload: {id: id, text: this.value } })} />
+            <input type="text" defaultValue={text} />
             <button onClick={() => dispatch({ type: 'delete-item', payload: id })}>Delete</button>
           </div>
 }
@@ -91,13 +91,15 @@ function TodosApp() {
   }, [state])
 
   return (
-    <ContextApp.Provider className="container" value={dispatch}>
-      <h1>Todos App</h1>
-      <button onClick={() => dispatch({ type: 'add-item' })}>Create New</button>
-      <br />
-      <br />
-      {/* we will useContext */}
-      <TodoList items={state} />
+    <ContextApp.Provider value={dispatch}>
+      <div className="container">
+        <h1>Todos App</h1>
+        <button onClick={() => dispatch({ type: 'add-item' })}>Create New</button>
+        <br />
+        <br />
+        {/* we will useContext */}
+        <TodoList items={state} />
+      </div>
     </ContextApp.Provider>
   );
 }
